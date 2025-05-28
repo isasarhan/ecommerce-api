@@ -1,0 +1,16 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Query {
+  getAll: [UserType!]!
+  hello: String!
+}
+
+type UserType {
+  _id: ID!
+  email: String!
+  name: String!
+  password: String!
+  role: String!
+}
