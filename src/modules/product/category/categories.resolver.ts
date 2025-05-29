@@ -6,7 +6,7 @@ import { UpdateProductCategoryArgs } from './dto/update-product-category.dto';
 import { GetProductCategoryArgs } from './dto/get-product-category.dto';
 
 @Resolver()
-export class CategoriesController {
+export class ProdcutCategoryResolver {
     constructor(
         private readonly service: ProductCategoriesService
     ) { }
@@ -17,7 +17,7 @@ export class CategoriesController {
     }
 
     @Query(() => [ProductCategoryType])
-    async getAllProductCategorys() {
+    async getProductCategories() {
         return this.service.findAll()
     }
 

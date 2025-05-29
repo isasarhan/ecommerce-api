@@ -12,7 +12,7 @@ export class ProductCategory {
   slug: string;
 
   @Prop()
-  img: string;
+  image: string;
 
   @Prop()
   description: string;

@@ -8,15 +8,15 @@ export class CreateProductCategoryArgs {
     @IsNotEmpty()
     name: string;
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     slug?: string;
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     img?: string;
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     description?: string;
 }

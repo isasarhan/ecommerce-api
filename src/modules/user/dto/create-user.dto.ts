@@ -1,5 +1,6 @@
 import { ArgsType, Field, ID, ObjectType } from "@nestjs/graphql";
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { Role } from "../user.schema";
 
 @ArgsType()
 export class CreateUserArgs {
@@ -19,7 +20,8 @@ export class CreateUserArgs {
     @IsNotEmpty()
     password: string;
 
-    @Field({ nullable: true })
+    @Field(() => Role, { nullable: true })
     @IsOptional()
-    role?: string;
+    @IsEnum(Role)
+    role?: Role;
 }

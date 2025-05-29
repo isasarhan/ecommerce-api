@@ -1,25 +1,25 @@
-import { Field, ID, ObjectType, registerEnumType } from "@nestjs/graphql";
-import { IsNotEmpty } from "class-validator";
-import { Role } from "./user.schema";
-import { ObjectId } from "mongoose";
+import { Field, ID, ObjectType, registerEnumType } from "@nestjs/graphql"
+import { IsNotEmpty } from "class-validator"
+import { Role } from "./user.schema"
+import { ObjectId } from "mongoose"
 
 registerEnumType(Role, {
     name: 'Role',
     description: 'The role of the user',
-});
+})
 
 @ObjectType()
 export class UserType {
     @Field(() => ID)
-    readonly _id?: ObjectId;
+    readonly _id?: ObjectId
 
     @Field()
     @IsNotEmpty()
-    name: string;
+    name: string
 
     @Field()
-    email: string;
+    email: string
 
     @Field(() => Role)
-    role: Role;
+    role: Role
 }

@@ -1,7 +1,7 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Document } from 'mongoose'
 import * as bcrypt from 'bcryptjs'
-export type UserDocument = User & Document;
+export type UserDocument = User & Document
 
 export enum Role {
     CUSTOMER = "customer",
@@ -12,21 +12,21 @@ export enum Role {
 @Schema({ timestamps: true })
 export class User {
     @Prop({ required: true })
-    name: string;
+    name: string
 
     @Prop({ required: true, unique: true })
-    email: string;
+    email: string
 
     @Prop()
-    password: string;
+    password: string
 
     @Prop({ type: String, enum: Role, default: Role.CUSTOMER })
-    role: string;
+    role: string
 
     matchPassword: (password: string) => Promise<boolean>
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User)
 
 UserSchema.methods.matchPassword = async function (password: string) {
     return await bcrypt.compare(password, this.password)

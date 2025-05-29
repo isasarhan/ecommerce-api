@@ -17,7 +17,7 @@ export class UsersResolver {
     }
 
     @Query(() => [UserType])
-    async getAllUsers() {
+    async getUsers() {
         return this.service.findAll()
     }
 

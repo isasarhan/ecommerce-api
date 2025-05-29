@@ -2,15 +2,54 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""The currency of the product price"""
+enum Currency {
+  Eur
+  Lbp
+  Other
+  Usd
+}
+
 type Mutation {
-  createUser(email: String!, name: String!, password: String!, role: String): UserType!
-  removeUser(id: String!): UserType!
-  updateUser(email: String, id: ID!, name: String, password: String, role: String): UserType!
+  createProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, images: [String!], name: String!, price: Float!, stock: Int): ProductType!
+  createProductCategory(description: String, img: String, name: String!, slug: String): ProductCategoryType!
+  createUser(email: String!, name: String!, password: String!, role: Role): UserType!
+  removeProduct(id: ID!): ProductType!
+  removeProductCategory(id: ID!): ProductCategoryType!
+  removeUser(id: ID!): UserType!
+  updateProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, id: ID!, images: [String!], name: String!, price: Float!, stock: Int): ProductType!
+  updateProductCategory(description: String, id: ID!, img: String, name: String!, slug: String): ProductCategoryType!
+  updateUser(email: String, id: ID!, name: String, password: String, role: Role): UserType!
+}
+
+type ProductCategoryType {
+  _id: ID!
+  description: String!
+  img: String!
+  name: String!
+  slug: String!
+}
+
+type ProductType {
+  _id: ID!
+  categories: [ID!]!
+  currency: Currency!
+  description: String!
+  enabled: Boolean!
+  featuredImage: String!
+  images: [String!]!
+  name: String!
+  price: Float!
+  stock: Int!
 }
 
 type Query {
-  getAllUsers: [UserType!]!
+  getProductById(id: ID!): ProductType!
+  getProductCategories: [ProductCategoryType!]!
+  getProductCategoryById(id: ID!): ProductCategoryType!
+  getProducts: [ProductType!]!
   getUserById(id: ID!): UserType!
+  getUsers: [UserType!]!
 }
 
 """The role of the user"""

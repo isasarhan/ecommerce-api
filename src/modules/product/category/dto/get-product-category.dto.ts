@@ -1,7 +1,7 @@
-import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { ArgsType, Field, ID } from "@nestjs/graphql";
 import { IsMongoId } from "class-validator";
 
-@ObjectType()
+@ArgsType()
 export class GetProductCategoryArgs {
 
     @Field(() => ID)
