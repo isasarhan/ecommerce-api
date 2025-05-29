@@ -33,7 +33,7 @@ export enum PaymentMethod {
 @Schema({ _id: false })
 export class Item {
     @Prop({ type: Types.ObjectId, ref: 'Product' })
-    product: Types.ObjectId
+    item: Types.ObjectId
 
     @Prop()
     quantity: number
@@ -46,7 +46,7 @@ export class Order {
 
     @Prop({ type: [Item] })
     @Type(() => Item)
-    items: Item[]
+    products: Item[]
 
     @Prop()
     shippingAddress: string

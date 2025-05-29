@@ -1,13 +1,13 @@
-import { ArgsType, Field, InputType, ObjectType, registerEnumType } from "@nestjs/graphql"
-import { Types } from "mongoose"
+import { ArgsType, Field, ID, InputType } from "@nestjs/graphql"
+import { ObjectId, Types } from "mongoose"
 import { Currency } from "src/common/types/enums"
 import { PaymentMethod, Status } from "../order.schema"
 import { IsEnum, IsOptional } from "class-validator"
 
 @InputType()
 export class OrderItemInput {
-    @Field()
-    product: Types.ObjectId
+    @Field(() => ID)
+    item: string
 
     @Field()
     quantity: number
@@ -15,17 +15,17 @@ export class OrderItemInput {
 
 @ArgsType()
 export class CreateOrderArgs {
-    @Field()
+    @Field(() => ID)
     user: Types.ObjectId
 
     @Field(() => [OrderItemInput])
-    items: OrderItemInput[]
+    products: OrderItemInput[]
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     shippingAddress: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     billingAddress: string
 
@@ -35,12 +35,12 @@ export class CreateOrderArgs {
     @Field()
     country: string
 
-    @Field(() => PaymentMethod)
+    @Field(() => PaymentMethod, { nullable: true })
     @IsOptional()
     @IsEnum(PaymentMethod)
     paymentMethod: PaymentMethod
 
-    @Field()
+    @Field(() => Status, { nullable: true })
     @IsOptional()
     @IsEnum(Status)
     status: Status
@@ -49,7 +49,7 @@ export class CreateOrderArgs {
     @IsOptional()
     totalAmount: number
 
-    @Field()
+    @Field(() => Currency, { nullable: true })
     @IsOptional()
     @IsEnum(Currency)
     currency: Currency

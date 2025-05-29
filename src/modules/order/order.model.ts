@@ -1,12 +1,14 @@
 import { Field, ID, ObjectType, registerEnumType } from "@nestjs/graphql"
-import { ObjectId, Types } from "mongoose"
+import { ObjectId } from "mongoose"
 import { PaymentMethod, Status } from "./order.schema"
 import { Currency } from "src/common/types/enums"
+import { ProductType } from "../product/product.model"
+import { UserType } from "../user/user.model"
 
 @ObjectType()
 export class OrderItem {
-    @Field()
-    product: Types.ObjectId
+    @Field(() => ProductType)
+    item: string
 
     @Field()
     quantity: number
@@ -17,11 +19,11 @@ export class OrderType {
     @Field(() => ID)
     _id: ObjectId
 
-    @Field()
-    user: Types.ObjectId
+    @Field(() => UserType)
+    user: ObjectId
 
     @Field(() => [OrderItem])
-    items: OrderItem[]
+    products: OrderItem[]
 
     @Field()
     shippingAddress: string

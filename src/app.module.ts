@@ -30,6 +30,5 @@ import { OrderModule } from './modules/order/order.module';
     }),
     UsersModule, ProductsModule, ProductCategoriesModule, CartsModule, OrderModule
   ],
-  providers: [OrderResolver, OrderService],
 })
 export class AppModule { }

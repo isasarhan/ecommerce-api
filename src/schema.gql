@@ -28,17 +28,58 @@ enum Currency {
 
 type Mutation {
   createCart(products: [CartProductInput!]!, user: ID!): CartType!
+  createOrder(billingAddress: String, city: String!, country: String!, currency: Currency, paymentMethod: PaymentMethod, products: [OrderItemInput!]!, shippingAddress: String, status: Status, totalAmount: Float!, user: ID!): OrderType!
   createProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, images: [String!], name: String!, price: Float!, stock: Int): ProductType!
   createProductCategory(description: String, img: String, name: String!, slug: String): ProductCategoryType!
   createUser(email: String!, isEnabled: Boolean!, name: String!, password: String!, role: Role): UserType!
   removeCart(id: ID!): CartType!
+  removeOrder(id: ID!): OrderType!
   removeProduct(id: ID!): ProductType!
   removeProductCategory(id: ID!): ProductCategoryType!
   removeUser(id: ID!): UserType!
   updateCart(id: ID!, products: [CartProductInput!]!, user: ID!): CartType!
+  updateOrder(billingAddress: String, city: String!, country: String!, currency: Currency, id: ID!, paymentMethod: PaymentMethod, products: [OrderItemInput!]!, shippingAddress: String, status: Status, totalAmount: Float!, user: ID!): OrderType!
   updateProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, id: ID!, images: [String!], name: String!, price: Float!, stock: Int): ProductType!
   updateProductCategory(description: String, id: ID!, img: String, name: String!, slug: String): ProductCategoryType!
   updateUser(email: String, id: ID!, isEnabled: Boolean, name: String, password: String, role: Role): UserType!
+}
+
+type OrderItem {
+  item: ProductType!
+  quantity: Float!
+}
+
+input OrderItemInput {
+  item: ID!
+  quantity: Float!
+}
+
+type OrderType {
+  _id: ID!
+  billingAddress: String!
+  city: String!
+  country: String!
+  currency: String!
+  paymentMethod: PaymentMethod!
+  products: [OrderItem!]!
+  shippingAddress: String!
+  status: String!
+  totalAmount: Float!
+  user: UserType!
+}
+
+"""The payment method of the order"""
+enum PaymentMethod {
+  APPLE_PAY
+  BANK_TRANSFER
+  CASH
+  COD
+  CREDIT_CARD
+  DEBIT_CARD
+  GOOGLE_PAY
+  OTHER
+  PAYPAL
+  STRIPE
 }
 
 type ProductCategoryType {
@@ -65,6 +106,8 @@ type ProductType {
 type Query {
   getCartById(user: ID!): CartType!
   getCarts: [CartType!]!
+  getOrderById(id: ID!): OrderType!
+  getOrders: [OrderType!]!
   getProductById(id: ID!): ProductType!
   getProductCategories: [ProductCategoryType!]!
   getProductCategoryById(id: ID!): ProductCategoryType!
@@ -78,6 +121,19 @@ enum Role {
   ADMIN
   CUSTOMER
   MANAGER
+}
+
+"""The status of the order"""
+enum Status {
+  APPROVED
+  CANCELLED
+  COMPLETED
+  FAILED
+  IN_PROGRESS
+  ON_HOLD
+  PENDING
+  PROCESSING
+  REJECTED
 }
 
 type UserType {
