@@ -12,7 +12,7 @@ export class ProductsResolver {
     ) { }
 
     @Query(() => ProductType)
-    async getProductById(@Args('id', { type: () => ID }) id: string) {
+    async getProductById(@Args() { id }: GetProductArgs) {
         return this.service.findById(id)
     }
 

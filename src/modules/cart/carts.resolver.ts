@@ -1,11 +1,11 @@
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { CartsService } from './carts.service';
-import { CartType } from './cart.model';
-import { CreateCartArgs } from './dto/create-cart.dto';
-import { UpdateCartArgs } from './dto/update-product.dto';
-import { GetCartByIdArgs, GetCartByUserArgs } from './dto/get-cart.dto';
-import { UsersService } from '../user/users.service';
-import { ProductsService } from '../product/products.service';
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
+import { CartsService } from './carts.service'
+import { CartType } from './cart.model'
+import { CreateCartArgs } from './dto/create-cart.dto'
+import { UpdateCartArgs } from './dto/update-product.dto'
+import { GetCartByIdArgs, GetCartByUserArgs } from './dto/get-cart.dto'
+import { UsersService } from '../user/users.service'
+import { ProductsService } from '../product/products.service'
 
 @Resolver(() => CartType)
 export class CartsResolver {
@@ -17,22 +17,22 @@ export class CartsResolver {
 
     @ResolveField()
     async user(@Parent() cart: CartType) {
-        const { user } = cart;
-        return this.userService.findById(user.toString());
+        const { user } = cart
+        return this.userService.findById(user.toString())
     }
 
     @ResolveField()
     async products(@Parent() cart: CartType) {
-        const { products } = cart;
+        const { products } = cart
         return Promise.all(
             products.map(async (product) => {
-                const foundProduct = await this.productsService.findById(product.item);
+                const foundProduct = await this.productsService.findById(product.item)
                 return {
                     item: foundProduct,
                     quantity: product.quantity,
-                };
+                }
             }),
-        );
+        )
     }
 
     @Query(() => CartType)
@@ -57,7 +57,6 @@ export class CartsResolver {
 
     @Mutation(() => CartType)
     async removeCart(@Args() { id }: GetCartByIdArgs) {
-        if (id)
-            return this.service.remove(id)
+        return this.service.remove(id)
     }
 }

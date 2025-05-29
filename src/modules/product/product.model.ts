@@ -11,7 +11,7 @@ registerEnumType(Currency, {
 @ObjectType()
 export class ProductType {
     @Field(() => ID)
-    readonly _id?: ObjectId
+    _id: ObjectId
 
     @Field()
     name: string
