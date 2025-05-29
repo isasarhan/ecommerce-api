@@ -7,40 +7,44 @@ import { UpdateProductArgs } from './dto/update-product.dto';
 
 @Injectable()
 export class ProductsService {
-     constructor(
-            @InjectModel(Product.name) private model: Model<Product>
-        ) { }
-    
-        async create(dto: CreateProductArgs) {
-            const newCategory = new this.model(dto);
-            return newCategory.save();
+    constructor(
+        @InjectModel(Product.name) private model: Model<Product>
+    ) { }
+
+    async create(dto: CreateProductArgs) {
+        const newproduct = new this.model(dto);
+        return newproduct.save();
+    }
+
+    async findById(id: string) {
+        const productExists = await this.model.findById(id)
+        if (!productExists) {
+            throw new NotFoundException('Product was not found!');
         }
-    
-        async findById(id: string) {
-            const categoryExists = await this.model.findById(id)
-            if (!categoryExists) {
-                throw new NotFoundException('Product was not found!');
-            }
-            return categoryExists
+        return productExists
+    }
+
+    async findMany(ids: [string]) {
+        return Promise.all(ids.map((id) => this.model.findById(id)))
+    }
+
+    async findAll() {
+        return await this.model.find()
+    }
+
+    async update(dto: UpdateProductArgs) {
+        const { id, ...product } = dto
+        const updated = await this.model.findByIdAndUpdate(id, { $set: product }, { new: true })
+        if (!updated) {
+            throw new NotFoundException('Product was not found!');
         }
-    
-        async findAll() {
-            return await this.model.find()
+        return updated
+    }
+
+    async remove(id: string) {
+        const deleted = await this.model.findByIdAndDelete(id)
+        if (!deleted) {
+            throw new NotFoundException('Product was not found!');
         }
-    
-        async update(dto: UpdateProductArgs) {
-            const { id, ...product } = dto
-            const updated = await this.model.findByIdAndUpdate(id, { $set: product }, { new: true })
-            if (!updated) {
-                throw new NotFoundException('Product was not found!');
-            }
-            return updated
-        }
-    
-        async remove(id: string) {
-            const deleted = await this.model.findByIdAndDelete(id)
-            if (!deleted) {
-                throw new NotFoundException('Product was not found!');
-            }
-        }
+    }
 }

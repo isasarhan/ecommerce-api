@@ -9,6 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 import { ProductsModule } from './modules/product/products.module';
+import { CartsModule } from './modules/cart/carts.module';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { ProductsModule } from './modules/product/products.module';
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
-    UsersModule, ProductsModule, ProductCategoriesModule
+    UsersModule, ProductsModule, ProductCategoriesModule, CartsModule
   ],
 })
 export class AppModule { }

@@ -13,6 +13,9 @@ import { ProductsResolver } from './products.resolver';
   ],
   providers: [
     ProductsService, ProductsResolver
+  ],
+  exports: [
+    ProductsService
   ]
 })
-export class ProductsModule {}
+export class ProductsModule { }

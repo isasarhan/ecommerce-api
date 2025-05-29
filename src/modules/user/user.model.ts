@@ -20,6 +20,9 @@ export class UserType {
     @Field()
     email: string
 
+    @Field()
+    isEnabled: boolean
+
     @Field(() => Role)
     role: Role
 }

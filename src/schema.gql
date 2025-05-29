@@ -2,6 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CartProduct {
+  item: ProductType!
+  quantity: Int!
+}
+
+input CartProductInput {
+  item: ID!
+  quantity: Int! = 1
+}
+
+type CartType {
+  _id: ID!
+  products: [CartProduct!]!
+  user: UserType!
+}
+
 """The currency of the product price"""
 enum Currency {
   Eur
@@ -11,15 +27,18 @@ enum Currency {
 }
 
 type Mutation {
+  createCart(products: [CartProductInput!]!, user: ID!): CartType!
   createProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, images: [String!], name: String!, price: Float!, stock: Int): ProductType!
   createProductCategory(description: String, img: String, name: String!, slug: String): ProductCategoryType!
-  createUser(email: String!, name: String!, password: String!, role: Role): UserType!
+  createUser(email: String!, isEnabled: Boolean!, name: String!, password: String!, role: Role): UserType!
+  removeCart(id: ID!): CartType!
   removeProduct(id: ID!): ProductType!
   removeProductCategory(id: ID!): ProductCategoryType!
   removeUser(id: ID!): UserType!
+  updateCart(id: ID!, products: [CartProductInput!]!, user: ID!): CartType!
   updateProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, id: ID!, images: [String!], name: String!, price: Float!, stock: Int): ProductType!
   updateProductCategory(description: String, id: ID!, img: String, name: String!, slug: String): ProductCategoryType!
-  updateUser(email: String, id: ID!, name: String, password: String, role: Role): UserType!
+  updateUser(email: String, id: ID!, isEnabled: Boolean, name: String, password: String, role: Role): UserType!
 }
 
 type ProductCategoryType {
@@ -44,6 +63,8 @@ type ProductType {
 }
 
 type Query {
+  getCartById(user: ID!): CartType!
+  getCarts: [CartType!]!
   getProductById(id: ID!): ProductType!
   getProductCategories: [ProductCategoryType!]!
   getProductCategoryById(id: ID!): ProductCategoryType!
@@ -62,6 +83,7 @@ enum Role {
 type UserType {
   _id: ID!
   email: String!
+  isEnabled: Boolean!
   name: String!
   role: Role!
 }

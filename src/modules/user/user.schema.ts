@@ -20,6 +20,9 @@ export class User {
     @Prop()
     password: string
 
+    @Prop()
+    isEnabled: boolean
+
     @Prop({ type: String, enum: Role, default: Role.CUSTOMER })
     role: string
 

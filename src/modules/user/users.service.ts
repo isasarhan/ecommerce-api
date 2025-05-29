@@ -20,8 +20,8 @@ export class UsersService {
         return newUser.save()
     }
 
-    async findById(id: string) {
-        const userExists = await this.model.findById(id)
+    async findById(id: string) {               
+        const userExists = await this.model.findById(id)        
         if (!userExists) {
             throw new NotFoundException('User was not found!')
         }
