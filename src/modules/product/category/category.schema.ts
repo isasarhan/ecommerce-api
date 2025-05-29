@@ -9,6 +9,12 @@ export class ProductCategory {
   name: string;
 
   @Prop()
+  slug: string;
+
+  @Prop()
+  img: string;
+
+  @Prop()
   description: string;
 }
 

@@ -2,15 +2,27 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Mutation {
+  createUser(email: String!, name: String!, password: String!, role: String): UserType!
+  removeUser(id: String!): UserType!
+  updateUser(email: String, id: ID!, name: String, password: String, role: String): UserType!
+}
+
 type Query {
-  getAll: [UserType!]!
-  hello: String!
+  getAllUsers: [UserType!]!
+  getUserById(id: ID!): UserType!
+}
+
+"""The role of the user"""
+enum Role {
+  ADMIN
+  CUSTOMER
+  MANAGER
 }
 
 type UserType {
   _id: ID!
   email: String!
   name: String!
-  password: String!
-  role: String!
+  role: Role!
 }

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CategoriesController } from './categories.controller';
+import { CategoriesController } from './categories.resolver';
 
 @Module({
   controllers: [CategoriesController]
