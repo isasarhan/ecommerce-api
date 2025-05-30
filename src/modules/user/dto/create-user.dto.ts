@@ -8,7 +8,22 @@ export class CreateUserArgs {
     @Field()
     @IsString()
     @IsNotEmpty()
-    name: string;
+    userName: string;
+
+    @Field({nullable:true})
+    @IsString()
+    @IsOptional()
+    firstName?: string;
+
+    @Field({nullable:true})
+    @IsString()
+    @IsOptional()
+    lastName?: string;
+
+    @Field()
+    @IsString()
+    @IsNotEmpty()
+    phone: string;
 
     @Field()
     @IsEmail()
@@ -20,7 +35,7 @@ export class CreateUserArgs {
     @IsNotEmpty()
     password: string;
 
-    @Field()
+    @Field({ nullable: true })
     @IsBoolean()
     @IsOptional()
     isEnabled: boolean

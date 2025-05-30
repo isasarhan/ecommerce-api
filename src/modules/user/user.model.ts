@@ -1,5 +1,4 @@
 import { Field, ID, ObjectType, registerEnumType } from "@nestjs/graphql"
-import { IsNotEmpty } from "class-validator"
 import { Role } from "./user.schema"
 import { ObjectId } from "mongoose"
 
@@ -11,14 +10,22 @@ registerEnumType(Role, {
 @ObjectType()
 export class UserType {
     @Field(() => ID)
-    readonly _id?: ObjectId
+    _id: ObjectId
 
     @Field()
-    @IsNotEmpty()
-    name: string
+    userName: string
+
+    @Field({ nullable: true })
+    firstName?: string
+
+    @Field({ nullable: true })
+    lastName?: string
 
     @Field()
     email: string
+
+    @Field()
+    phone: string
 
     @Field()
     isEnabled: boolean

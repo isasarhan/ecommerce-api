@@ -28,6 +28,10 @@ export class UsersService {
         return userExists
     }
 
+      async findByEmail(email: string){
+        return await this.model.findOne({ email })
+    }
+
     async findAll() {
         return await this.model.find()
     }
