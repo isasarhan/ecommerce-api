@@ -9,12 +9,12 @@ export class ProductCategoryType {
     @Field()
     name: string;
 
-    @Field()
+    @Field({nullable:true})
     slug: string;
 
-    @Field()
+    @Field({nullable:true})
     img: string;
 
-    @Field()
+    @Field({nullable:true})
     description: string;
 }

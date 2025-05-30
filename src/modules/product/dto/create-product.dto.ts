@@ -18,6 +18,10 @@ export class CreateProductArgs {
     @IsNotEmpty()
     price: number
 
+    @Field(() => Float)
+    @IsOptional()
+    salePrice: number
+
     @Field(() => Currency, { nullable: true })
     @IsOptional()
     @IsEnum(Currency)

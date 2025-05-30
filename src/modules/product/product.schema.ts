@@ -15,6 +15,9 @@ export class Product {
   @Prop({ required: true })
   price: number
 
+  @Prop()
+  salePrice: number
+
   @Prop({ type: String, enum: Currency, default: Currency.Usd })
   currency: Currency
 

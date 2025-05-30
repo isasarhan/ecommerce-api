@@ -16,11 +16,14 @@ export class ProductType {
     @Field()
     name: string
 
-    @Field()
-    description: string
+    @Field({ nullable: true })
+    description?: string
 
     @Field(() => Float)
     price: number
+
+    @Field(() => Float, { nullable: true })
+    salePrice?: number
 
     @Field(() => Currency)
     currency: Currency
@@ -31,11 +34,11 @@ export class ProductType {
     @Field(() => [ID])
     categories: Types.ObjectId[]
 
-    @Field()
-    featuredImage: string
+    @Field({ nullable: true })
+    featuredImage?: string
 
-    @Field(() => [String])
-    images: string[]
+    @Field(() => [String], { nullable: true })
+    images?: string[]
 
     @Field()
     enabled: boolean

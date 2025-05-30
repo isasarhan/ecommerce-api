@@ -12,9 +12,9 @@ export class OrderService {
     ) { }
 
     async create(dto: CreateOrderArgs) {
-        if(dto.products.length ===0 )
+        if (dto.products.length === 0)
             throw new ConflictException('No products in the order!')
-        
+
         const newOrder = new this.model({
             ...dto,
             products: dto.products.map((product) => {
