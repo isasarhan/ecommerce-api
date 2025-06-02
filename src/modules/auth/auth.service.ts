@@ -11,6 +11,8 @@ export class AuthService {
     ) { }
 
     async register(userargs: CreateUserArgs) {
+        console.log('register');
+        
         return await this.service.create(userargs)
     }
 

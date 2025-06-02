@@ -13,11 +13,11 @@ export enum Role {
 export class User {
     @Prop({ required: true })
     userName: string
-    
-    @Prop({ required: true })
+
+    @Prop()
     fistName: string
 
-    @Prop({ required: true })
+    @Prop()
     lastName: string
 
     @Prop({ required: true, unique: true })
@@ -29,7 +29,7 @@ export class User {
     @Prop()
     password: string
 
-    @Prop()
+    @Prop({ default: false })
     isEnabled: boolean
 
     @Prop({ type: String, enum: Role, default: Role.CUSTOMER })
@@ -45,7 +45,7 @@ UserSchema.methods.matchPassword = async function (password: string) {
 }
 
 UserSchema.pre('save', async function (next) {
-    const salt = await bcrypt.genSalt(20)
+    const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
     next()
 })

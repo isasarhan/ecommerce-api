@@ -47,6 +47,8 @@ export class CartsResolver {
 
     @Mutation(() => CartType)
     async createCart(@Args() args: CreateCartArgs) {
+        console.log('createCart', args);
+                    
         return this.service.create(args)
     }
 

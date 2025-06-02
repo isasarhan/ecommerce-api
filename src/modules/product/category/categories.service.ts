@@ -29,6 +29,8 @@ export class ProductCategoriesService {
     }
 
     async update(dto: UpdateProductCategoryArgs) {
+        console.log('dto' ,dto);
+        
         const { id, ...category } = dto
         const updated = await this.model.findByIdAndUpdate(id, { $set: category }, { new: true })
         if (!updated) {

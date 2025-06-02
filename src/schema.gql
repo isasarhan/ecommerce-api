@@ -32,7 +32,7 @@ enum Currency {
 }
 
 type Mutation {
-  createCart(products: [CartProductInput!]!, user: ID!): CartType!
+  createCart(products: [CartProductInput!], user: ID!): CartType!
   createOrder(billingAddress: String, city: String!, country: String!, currency: Currency, paymentMethod: PaymentMethod, products: [OrderItemInput!]!, shippingAddress: String, status: Status, totalAmount: Float!, user: ID!): OrderType!
   createProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, images: [String!], name: String!, price: Float!, salePrice: Float!, stock: Int): ProductType!
   createProductCategory(description: String, img: String, name: String!, slug: String): ProductCategoryType!
@@ -44,10 +44,10 @@ type Mutation {
   removeProductCategory(id: ID!): ProductCategoryType!
   removeUser(id: ID!): UserType!
   signIn(email: String!, password: String!): AuthType!
-  updateCart(id: ID!, products: [CartProductInput!]!, user: ID!): CartType!
+  updateCart(id: ID!, products: [CartProductInput!], user: ID): CartType!
   updateOrder(billingAddress: String, city: String!, country: String!, currency: Currency, id: ID!, paymentMethod: PaymentMethod, products: [OrderItemInput!]!, shippingAddress: String, status: Status, totalAmount: Float!, user: ID!): OrderType!
   updateProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, id: ID!, images: [String!], name: String!, price: Float!, salePrice: Float!, stock: Int): ProductType!
-  updateProductCategory(description: String, id: ID!, img: String, name: String!, slug: String): ProductCategoryType!
+  updateProductCategory(description: String, id: ID!, img: String, name: String, slug: String): ProductCategoryType!
   updateUser(email: String, firstName: String, id: ID!, isEnabled: Boolean, lastName: String, password: String, phone: String, role: Role, userName: String): UserType!
 }
 

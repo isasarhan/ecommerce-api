@@ -1,5 +1,5 @@
-import { ArgsType, Field, ID, InputType, Int } from "@nestjs/graphql";
-import { IsMongoId, IsNotEmpty } from "class-validator";
+import { ArgsType, Field, ID, InputType, Int } from "@nestjs/graphql"
+import { IsMongoId, IsNotEmpty } from "class-validator"
 
 @InputType()
 class CartProductInput {
@@ -14,10 +14,10 @@ class CartProductInput {
 
 @ArgsType()
 export class CreateCartArgs {
-    @Field(() => ID)
-    @IsMongoId()
-    user: string
+  @Field(() => ID)
+  @IsMongoId()
+  user: string
 
-    @Field(() => [CartProductInput])
-    products: CartProductInput[]
+  @Field(() => [CartProductInput], { nullable: true })
+  products: CartProductInput[]
 }
