@@ -36,8 +36,8 @@ type Mutation {
   createOrder(billingAddress: String, city: String!, country: String!, currency: Currency, paymentMethod: PaymentMethod, products: [OrderItemInput!]!, shippingAddress: String, status: Status, totalAmount: Float!, user: ID!): OrderType!
   createProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, images: [String!], name: String!, price: Float!, salePrice: Float!, stock: Int): ProductType!
   createProductCategory(description: String, img: String, name: String!, slug: String): ProductCategoryType!
-  createUser(email: String!, firstName: String, isEnabled: Boolean, lastName: String, password: String!, phone: String!, role: Role, userName: String!): UserType!
-  register(email: String!, firstName: String, isEnabled: Boolean, lastName: String, password: String!, phone: String!, role: Role, userName: String!): UserType!
+  createUser(email: String!, firstName: String!, isEnabled: Boolean, lastName: String!, password: String!, phone: String!, role: Role, userName: String!): UserType!
+  register(email: String!, firstName: String!, isEnabled: Boolean, lastName: String!, password: String!, phone: String!, role: Role, userName: String!): UserType!
   removeCart(id: ID!): CartType!
   removeOrder(id: ID!): OrderType!
   removeProduct(id: ID!): ProductType!

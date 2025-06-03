@@ -10,15 +10,15 @@ export class CreateUserArgs {
     @IsNotEmpty()
     userName: string;
 
-    @Field({nullable:true})
+    @Field()
     @IsString()
-    @IsOptional()
-    firstName?: string;
+    @IsNotEmpty()
+    firstName: string;
 
-    @Field({nullable:true})
+    @Field()
     @IsString()
-    @IsOptional()
-    lastName?: string;
+    @IsNotEmpty()
+    lastName: string;
 
     @Field()
     @IsString()

@@ -14,10 +14,10 @@ export class User {
     @Prop({ required: true })
     userName: string
 
-    @Prop()
-    fistName: string
+    @Prop({ required: true })
+    firstName: string
 
-    @Prop()
+    @Prop({ required: true })
     lastName: string
 
     @Prop({ required: true, unique: true })
