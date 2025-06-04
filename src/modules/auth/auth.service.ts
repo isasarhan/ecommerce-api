@@ -10,9 +10,7 @@ export class AuthService {
         private readonly service: UsersService
     ) { }
 
-    async register(userargs: CreateUserArgs) {
-        console.log('register');
-        
+    async register(userargs: CreateUserArgs) {        
         return await this.service.create(userargs)
     }
 

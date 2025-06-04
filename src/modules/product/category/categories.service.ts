@@ -28,9 +28,7 @@ export class ProductCategoriesService {
         return await this.model.find()
     }
 
-    async update(dto: UpdateProductCategoryArgs) {
-        console.log('dto' ,dto);
-        
+    async update(dto: UpdateProductCategoryArgs) {        
         const { id, ...category } = dto
         const updated = await this.model.findByIdAndUpdate(id, { $set: category }, { new: true })
         if (!updated) {

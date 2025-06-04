@@ -31,11 +31,8 @@ export class ProductsResolver {
     }
 
     @Query(() => GetProductsResponse)
-    async getProducts(@Args() args:GetProductsArgs) {
-        console.log('args', args);
-        
+    async getProducts(@Args() args:GetProductsArgs) {        
         const filter = this.service.filter(args)
-        console.log('filter', filter);
         return this.service.findAll(filter)
     }
 
