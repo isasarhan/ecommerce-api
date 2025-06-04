@@ -1,24 +1,42 @@
-import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { ProductsService } from './products.service';
 import { ProductType } from './product.model';
 import { CreateProductArgs } from './dto/create-product.dto';
 import { UpdateProductArgs } from './dto/update-product.dto';
 import { GetProductArgs } from './dto/get-product.dto';
+import { ProductCategoriesService } from './category/categories.service';
+import { GetProductsArgs, GetProductsResponse } from './dto/get-all..dto';
 
-@Resolver()
+@Resolver(()=>ProductType)
 export class ProductsResolver {
     constructor(
-        private readonly service: ProductsService
+        private readonly service: ProductsService,
+        private readonly productCategoryservice: ProductCategoriesService,
     ) { }
+
+
+    @ResolveField()
+    async categories(@Parent() product: ProductType) {
+        const { categories } = product
+        return await Promise.all(
+            categories.map(async (category) => {
+                return this.productCategoryservice.findById(category)
+            }),
+        )
+    }
 
     @Query(() => ProductType)
     async getProductById(@Args() { id }: GetProductArgs) {
         return this.service.findById(id)
     }
 
-    @Query(() => [ProductType])
-    async getProducts() {
-        return this.service.findAll()
+    @Query(() => GetProductsResponse)
+    async getProducts(@Args() args:GetProductsArgs) {
+        console.log('args', args);
+        
+        const filter = this.service.filter(args)
+        console.log('filter', filter);
+        return this.service.findAll(filter)
     }
 
     @Mutation(() => ProductType)

@@ -1,9 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Product } from './product.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateProductArgs } from './dto/create-product.dto';
 import { UpdateProductArgs } from './dto/update-product.dto';
+import { GetProductsArgs } from './dto/get-all..dto';
+import { IFilter } from 'src/common/types/filter';
 
 @Injectable()
 export class ProductsService {
@@ -27,9 +29,31 @@ export class ProductsService {
     async findMany(ids: [string]) {
         return Promise.all(ids.map((id) => this.model.findById(id)))
     }
+    filter(filter: GetProductsArgs) {
+        let categoryIds: Types.ObjectId[] = []
+        if (filter.categories)
+            categoryIds = filter.categories.map(id => new Types.ObjectId(id));
 
-    async findAll() {
-        return await this.model.find()
+        return {
+            ...filter.categories && filter.categories.length > 0 && { categories: { $in: categoryIds } },
+        }
+    }
+    async findAll(filters: IFilter, page: number = 1, limit: number = 20) {
+        const finalLimit = filters.pageSize || limit;
+
+        const skip = (page - 1) * finalLimit;
+
+        const [products, total] = await Promise.all([
+            this.model.find(filters).limit(finalLimit).skip(skip).exec(),
+            this.model.countDocuments(filters),
+        ]);
+
+        return {
+            data: products,
+            total,
+            page,
+            pages: Math.ceil(total / finalLimit),
+        };
     }
 
     async update(dto: UpdateProductArgs) {

@@ -31,6 +31,13 @@ enum Currency {
   Usd
 }
 
+type GetProductsResponse {
+  data: [ProductType!]!
+  page: Int!
+  pages: Int!
+  total: Int!
+}
+
 type Mutation {
   createCart(products: [CartProductInput!], user: ID!): CartType!
   createOrder(billingAddress: String, city: String!, country: String!, currency: Currency, paymentMethod: PaymentMethod, products: [OrderItemInput!]!, shippingAddress: String, status: Status, totalAmount: Float!, user: ID!): OrderType!
@@ -99,7 +106,7 @@ type ProductCategoryType {
 
 type ProductType {
   _id: ID!
-  categories: [ID!]!
+  categories: [ProductCategoryType!]!
   currency: Currency!
   description: String
   enabled: Boolean!
@@ -119,7 +126,7 @@ type Query {
   getProductById(id: ID!): ProductType!
   getProductCategories: [ProductCategoryType!]!
   getProductCategoryById(id: ID!): ProductCategoryType!
-  getProducts: [ProductType!]!
+  getProducts(categories: [String!]): GetProductsResponse!
   getUserById(id: ID!): UserType!
   getUsers: [UserType!]!
 }

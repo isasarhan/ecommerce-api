@@ -13,6 +13,7 @@ import { ProductCategoriesService } from './categories.service';
   ],
   providers: [
     ProductCategoriesService, ProdcutCategoryResolver
-  ]
+  ],
+  exports: [ProductCategoriesService]
 })
 export class ProductCategoriesModule {}

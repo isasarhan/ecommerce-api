@@ -1,6 +1,7 @@
 import { Field, Float, ID, Int, ObjectType, registerEnumType } from "@nestjs/graphql"
 import { ObjectId, Types } from "mongoose"
 import { Currency } from "src/common/types/enums"
+import { ProductCategoryType } from "./category/category.model"
 
 registerEnumType(Currency, {
     name: 'Currency',
@@ -31,8 +32,8 @@ export class ProductType {
     @Field(() => Int)
     stock: number
 
-    @Field(() => [ID])
-    categories: Types.ObjectId[]
+    @Field(() => [ProductCategoryType])
+    categories: string[]
 
     @Field({ nullable: true })
     featuredImage?: string

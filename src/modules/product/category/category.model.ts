@@ -4,17 +4,17 @@ import { ObjectId } from "mongoose";
 @ObjectType()
 export class ProductCategoryType {
     @Field(() => ID)
-    readonly _id?: ObjectId;
+    _id: ObjectId;
 
-    @Field()
+    @Field(() => String)
     name: string;
 
-    @Field({nullable:true})
+    @Field({ nullable: true })
     slug: string;
 
-    @Field({nullable:true})
+    @Field({ nullable: true })
     img: string;
 
-    @Field({nullable:true})
+    @Field({ nullable: true })
     description: string;
 }
