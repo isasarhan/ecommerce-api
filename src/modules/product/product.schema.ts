@@ -35,6 +35,9 @@ export class Product {
 
   @Prop({ default: true })
   enabled: boolean
+
+  @Prop({ default: () => Date.now() })
+  createdAt: Date
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product)

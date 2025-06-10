@@ -7,17 +7,18 @@ class CartProductInput {
     @IsMongoId()
     @IsNotEmpty()
     item: string
-
+    
     @Field(() => Int, { defaultValue: 1 })
     quantity: number
-}
-
-@ArgsType()
-export class CreateCartArgs {
-  @Field(() => ID)
-  @IsMongoId()
-  user: string
+  }
+  
+  @ArgsType()
+  export class CreateCartArgs {
+    @Field(() => ID)
+    @IsMongoId()
+    @IsNotEmpty()
+    user: string
 
   @Field(() => [CartProductInput], { nullable: true })
-  products: CartProductInput[]
+  products?: CartProductInput[]
 }

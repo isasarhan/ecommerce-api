@@ -1,4 +1,4 @@
-import { Field, Float, ID, Int, ObjectType, registerEnumType } from "@nestjs/graphql"
+import { Field, Float, GraphQLISODateTime, ID, Int, ObjectType, registerEnumType } from "@nestjs/graphql"
 import { ObjectId, Types } from "mongoose"
 import { Currency } from "src/common/types/enums"
 import { ProductCategoryType } from "./category/category.model"
@@ -43,4 +43,7 @@ export class ProductType {
 
     @Field()
     enabled: boolean
+
+    @Field(() => GraphQLISODateTime)
+    createdAt?: Date
 }

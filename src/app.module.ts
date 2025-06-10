@@ -15,6 +15,7 @@ import { AuthResolver } from './modules/auth/auth.resolver';
 import { AuthService } from './modules/auth/auth.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthMiddleware } from './common/middlewares/auth.middleware';
+import { WishlistModule } from './modules/wishlist/wishlist.module';
 
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import { AuthMiddleware } from './common/middlewares/auth.middleware';
       introspection: true,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
-    UsersModule, AuthModule, ProductsModule, ProductCategoriesModule, CartsModule, OrderModule
+    UsersModule, AuthModule, ProductsModule, ProductCategoriesModule, CartsModule, OrderModule, WishlistModule
   ],
   providers: [AuthResolver, AuthService],
 })

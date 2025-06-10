@@ -12,10 +12,13 @@ export class GetProductsArgs extends Pagination {
 export class GetProductsResponse {
     @Field(() => [ProductType])
     data: ProductType[]
+
     @Field(() => Int)
     total: number
+
     @Field(() => Int)
     page: number
+    
     @Field(() => Int)
     pages: number
 }
