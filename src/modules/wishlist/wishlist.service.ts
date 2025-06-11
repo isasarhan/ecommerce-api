@@ -4,6 +4,7 @@ import { Model, Types } from 'mongoose';
 import { Wishlist } from './wishlist.schema';
 import { CreateWishlistArgs } from './dto/create.dto';
 import { UpdateWishlistArgs } from './dto/update.dto';
+import { AddToWishlistArgs } from './dto/add-to-wishlist.dto';
 
 @Injectable()
 export class WishlistService {
@@ -29,6 +30,25 @@ export class WishlistService {
 
     async findAll() {
         return await this.model.find()
+    }
+
+    async add(dto: AddToWishlistArgs) {
+        const wishlist = await this.model.findById(dto.id);
+        if (!wishlist) throw new NotFoundException('wishlist not found');
+
+        const exists = wishlist.products.some(
+            (product) => product.toString() === dto.product
+        );
+
+        if (exists) {
+            wishlist.products = wishlist.products.filter((p) => p.toString() !== dto.product);
+        } else {
+            // Add new product
+            wishlist.products.push(new Types.ObjectId(dto.product));
+        }
+
+        await wishlist.save();
+        return wishlist;
     }
 
     async update(dto: UpdateWishlistArgs) {

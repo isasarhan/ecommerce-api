@@ -5,7 +5,7 @@ import { ObjectId, Types } from "mongoose";
 @Schema({ _id: false })
 class Product {
     @Prop({ type: Types.ObjectId, ref: "Product" })
-    item: ObjectId
+    item: Types.ObjectId
 
     @Prop()
     quantity: number
@@ -16,7 +16,7 @@ export const ProductSchema = SchemaFactory.createForClass(Product);
 @Schema()
 export class Cart {
     @Prop({ type: Types.ObjectId, ref: "User", unique: true })
-    user: string
+    user: Types.ObjectId
 
     @Prop({ type: [ProductSchema] })
     @Type(() => Product)

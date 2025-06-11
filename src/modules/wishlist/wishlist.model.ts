@@ -11,6 +11,6 @@ export class WishlistType {
     @Field(() => UserType)
     user: Types.ObjectId
 
-    @Field(() => [ProductType])
+    @Field(() => [ProductType], { nullable: true })
     products: Types.ObjectId[]
 }

@@ -32,8 +32,8 @@ export class AuthResolver {
 
     @ResolveField()
     async wishlist(@Parent() auth: AuthType) {
-        const { wishlist } = auth
-        return this.wishlistService.findByUserId(wishlist._id.toString())
+        const { user } = auth
+        return this.wishlistService.findByUserId(user._id.toString())
     }
 
     @Mutation(() => UserType)

@@ -7,7 +7,7 @@ export class Wishlist {
     user: ObjectId
 
     @Prop({ type: [Types.ObjectId], ref: 'Product', default:[] })
-    products: ObjectId[]
+    products: Types.ObjectId[]
 }
 
 export const WishlistSchema = SchemaFactory.createForClass(Wishlist)

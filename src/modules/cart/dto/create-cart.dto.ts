@@ -3,21 +3,21 @@ import { IsMongoId, IsNotEmpty } from "class-validator"
 
 @InputType()
 class CartProductInput {
-    @Field(() => ID)
-    @IsMongoId()
-    @IsNotEmpty()
-    item: string
-    
-    @Field(() => Int, { defaultValue: 1 })
-    quantity: number
-  }
-  
-  @ArgsType()
-  export class CreateCartArgs {
-    @Field(() => ID)
-    @IsMongoId()
-    @IsNotEmpty()
-    user: string
+  @Field(() => ID)
+  @IsMongoId()
+  @IsNotEmpty()
+  item: string
+
+  @Field(() => Int, { defaultValue: 1 })
+  quantity: number
+}
+
+@ArgsType()
+export class CreateCartArgs {
+  @Field(() => ID)
+  @IsMongoId()
+  @IsNotEmpty()
+  user: string
 
   @Field(() => [CartProductInput], { nullable: true })
   products?: CartProductInput[]

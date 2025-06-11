@@ -6,6 +6,7 @@ import { UpdateCartArgs } from './dto/update-product.dto'
 import { GetCartByIdArgs, GetCartByUserArgs } from './dto/get-cart.dto'
 import { UsersService } from '../user/users.service'
 import { ProductsService } from '../product/products.service'
+import { AddToCartArgs } from './dto/add-to-cart'
 
 @Resolver(() => CartType)
 export class CartsResolver {
@@ -43,6 +44,11 @@ export class CartsResolver {
     @Query(() => [CartType])
     async getCarts() {
         return this.service.findAll()
+    }
+
+    @Mutation(() => CartType)
+    async addToCart(@Args() args: AddToCartArgs) {                    
+        return this.service.add(args)
     }
 
     @Mutation(() => CartType)

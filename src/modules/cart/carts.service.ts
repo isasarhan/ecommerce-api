@@ -4,6 +4,7 @@ import { Cart } from './cart.schema';
 import { Model, Types } from 'mongoose';
 import { CreateCartArgs } from './dto/create-cart.dto';
 import { UpdateCartArgs } from './dto/update-product.dto';
+import { AddToCartArgs } from './dto/add-to-cart';
 
 @Injectable()
 export class CartsService {
@@ -17,6 +18,29 @@ export class CartsService {
             user: new Types.ObjectId(dto.user)
         });
         return newcart.save();
+    }
+
+    async add(dto: AddToCartArgs) {
+        const cart = await this.model.findById(dto.id);
+        if (!cart) throw new NotFoundException('Cart not found');
+
+        const existingProductIndex = cart.products.findIndex(
+            (product) => product.item.toString() === dto.item
+        );
+
+        if (existingProductIndex !== -1) {
+            // Update quantity for existing product
+            cart.products[existingProductIndex].quantity += dto.quantity ?? 1;
+        } else {
+            // Add new product
+            cart.products.push({
+                item: new Types.ObjectId(dto.item),
+                quantity: dto.quantity ?? 1
+            });
+        }
+
+        await cart.save();
+        return cart;
     }
 
     async findByUserId(user: string) {

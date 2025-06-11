@@ -7,6 +7,7 @@ import { GetWishlistByIdArgs, GetWishlistByUserArgs } from './dto/get-wishlist.d
 import { WishlistService } from './wishlist.service'
 import { CreateWishlistArgs } from './dto/create.dto'
 import { UpdateWishlistArgs } from './dto/update.dto'
+import { AddToWishlistArgs } from './dto/add-to-wishlist.dto'
 
 @Resolver(() => WishlistType)
 export class WishlistResolver {
@@ -27,8 +28,7 @@ export class WishlistResolver {
         const { products } = Wishlist
         return Promise.all(
             products.map(async (product) => {
-                const foundProduct = await this.productsService.findById(product.toString())
-
+                return await this.productsService.findById(product.toString())
             }),
         )
     }
@@ -46,6 +46,10 @@ export class WishlistResolver {
     @Mutation(() => WishlistType)
     async createWishlist(@Args() args: CreateWishlistArgs) {                    
         return this.service.create(args)
+    }
+    @Mutation(() => WishlistType)
+    async addToWishlist(@Args() args: AddToWishlistArgs) {                    
+        return this.service.add(args)
     }
 
     @Mutation(() => WishlistType)

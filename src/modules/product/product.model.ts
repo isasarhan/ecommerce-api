@@ -26,6 +26,9 @@ export class ProductType {
     @Field(() => Float, { nullable: true })
     salePrice?: number
 
+    @Field(() => Int, { nullable: true })
+    rating?: number
+
     @Field(() => Currency)
     currency: Currency
 

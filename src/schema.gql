@@ -46,9 +46,11 @@ type GetProductsResponse {
 }
 
 type Mutation {
+  addToCart(id: ID!, item: String!, quantity: Int = 1): CartType!
+  addToWishlist(id: ID!, product: String!): WishlistType!
   createCart(products: [CartProductInput!], user: ID!): CartType!
   createOrder(billingAddress: String, city: String!, country: String!, currency: Currency, paymentMethod: PaymentMethod, products: [OrderItemInput!]!, shippingAddress: String, status: Status, totalAmount: Float!, user: ID!): OrderType!
-  createProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, images: [String!], name: String!, price: Float!, salePrice: Float!, stock: Int): ProductType!
+  createProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, images: [String!], name: String!, price: Float!, rating: Float, salePrice: Float, stock: Int): ProductType!
   createProductCategory(description: String, img: String, name: String!, slug: String): ProductCategoryType!
   createUser(email: String!, firstName: String!, isEnabled: Boolean, lastName: String!, password: String!, phone: String!, role: Role, userName: String!): UserType!
   createWishlist(products: [String!], user: ID!): WishlistType!
@@ -63,7 +65,7 @@ type Mutation {
   signIn(email: String!, password: String!): AuthType!
   updateCart(id: ID!, products: [CartProductInput!], user: ID): CartType!
   updateOrder(billingAddress: String, city: String!, country: String!, currency: Currency, id: ID!, paymentMethod: PaymentMethod, products: [OrderItemInput!]!, shippingAddress: String, status: Status, totalAmount: Float!, user: ID!): OrderType!
-  updateProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, id: ID!, images: [String!], name: String!, price: Float!, salePrice: Float!, stock: Int): ProductType!
+  updateProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, id: ID!, images: [String!], name: String!, price: Float!, rating: Float, salePrice: Float, stock: Int): ProductType!
   updateProductCategory(description: String, id: ID!, img: String, name: String, slug: String): ProductCategoryType!
   updateUser(email: String, firstName: String, id: ID!, isEnabled: Boolean, lastName: String, password: String, phone: String, role: Role, userName: String): UserType!
   updateWishlist(id: ID!, products: [String!], user: ID): WishlistType!
@@ -126,6 +128,7 @@ type ProductType {
   images: [String!]
   name: String!
   price: Float!
+  rating: Int
   salePrice: Float
   stock: Int!
 }
@@ -178,6 +181,6 @@ type UserType {
 
 type WishlistType {
   _id: ID!
-  products: [ProductType!]!
+  products: [ProductType!]
   user: UserType!
 }

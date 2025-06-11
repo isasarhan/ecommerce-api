@@ -18,9 +18,13 @@ export class CreateProductArgs {
     @IsNotEmpty()
     price: number
 
-    @Field(() => Float)
+    @Field(() => Float, { nullable: true })
     @IsOptional()
     salePrice: number
+
+    @Field(() => Float, { nullable: true })
+    @IsOptional()
+    rating?: number
 
     @Field(() => Currency, { nullable: true })
     @IsOptional()
