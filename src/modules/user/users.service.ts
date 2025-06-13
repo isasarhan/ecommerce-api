@@ -4,6 +4,8 @@ import { User } from './user.schema'
 import { Model } from 'mongoose'
 import { CreateUserArgs } from './dto/create-user.dto'
 import { UpdateUserArgs } from './dto/update-user.dto'
+import { IFilter } from 'src/common/types/filter'
+import { GetUsersArgs } from './dto/get-all.dto'
 
 @Injectable()
 export class UsersService {
@@ -20,20 +22,48 @@ export class UsersService {
         return newUser.save()
     }
 
-    async findById(id: string) {               
-        const userExists = await this.model.findById(id)        
+    async findById(id: string) {
+        const userExists = await this.model.findById(id)
         if (!userExists) {
             throw new NotFoundException('User was not found!')
         }
         return userExists
     }
 
-      async findByEmail(email: string){
+    async findByEmail(email: string) {
         return await this.model.findOne({ email })
     }
 
-    async findAll() {
-        return await this.model.find()
+    filter(filter: GetUsersArgs) {
+        return {
+            ...(filter.searchTerm && {
+                $or: [
+                    { email: { $regex: filter.searchTerm, $options: 'i' } },
+                    { phone: { $regex: filter.searchTerm, $options: 'i' } },
+                    { userName: { $regex: filter.searchTerm, $options: 'i' } },
+                    { firstName: { $regex: filter.searchTerm, $options: 'i' } },
+                    { lastName: { $regex: filter.searchTerm, $options: 'i' } },
+                ],
+            }),
+        }
+    }
+
+    async findAll(filters: IFilter, page: number = 1, limit: number = 20) {
+        const finalLimit = filters.pageSize || limit;
+
+        const skip = (page - 1) * finalLimit;
+
+        const [users, total] = await Promise.all([
+            this.model.find(filters).limit(finalLimit).skip(skip).exec(),
+            this.model.countDocuments(filters),
+        ]);
+
+        return {
+            data: users,
+            total,
+            page,
+            pages: Math.ceil(total / finalLimit),
+        };
     }
 
 

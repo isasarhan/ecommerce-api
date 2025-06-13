@@ -29,6 +29,9 @@ export class User {
     @Prop()
     password: string
 
+    @Prop()
+    featuredImage: string
+
     @Prop({ default: false })
     isEnabled: boolean
 

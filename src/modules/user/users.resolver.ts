@@ -4,6 +4,7 @@ import { UsersService } from "./users.service";
 import { CreateUserArgs } from "./dto/create-user.dto";
 import { UpdateUserArgs } from "./dto/update-user.dto";
 import { GetUserArgs } from "./dto/get-user.dto";
+import { GetUsersArgs, GetUsersResponse } from "./dto/get-all.dto";
 
 @Resolver()
 export class UsersResolver {
@@ -16,9 +17,10 @@ export class UsersResolver {
         return this.service.findById(id)
     }
 
-    @Query(() => [UserType])
-    async getUsers() {
-        return this.service.findAll()
+    @Query(() => GetUsersResponse)
+    async getUsers(@Args() args: GetUsersArgs) {
+        const filter = this.service.filter(args)
+        return this.service.findAll(filter, args.page, args.pageSize)
     }
 
     @Mutation(() => UserType)

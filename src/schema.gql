@@ -45,6 +45,13 @@ type GetProductsResponse {
   total: Int!
 }
 
+type GetUsersResponse {
+  data: [UserType!]!
+  page: Int!
+  pages: Int!
+  total: Int!
+}
+
 type Mutation {
   addToCart(id: ID!, item: String!, quantity: Int = 1): CartType!
   addToWishlist(id: ID!, product: String!): WishlistType!
@@ -52,9 +59,9 @@ type Mutation {
   createOrder(billingAddress: String, city: String!, country: String!, currency: Currency, paymentMethod: PaymentMethod, products: [OrderItemInput!]!, shippingAddress: String, status: Status, totalAmount: Float!, user: ID!): OrderType!
   createProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, images: [String!], name: String!, price: Float!, rating: Float, salePrice: Float, stock: Int): ProductType!
   createProductCategory(description: String, img: String, name: String!, slug: String): ProductCategoryType!
-  createUser(email: String!, firstName: String!, isEnabled: Boolean, lastName: String!, password: String!, phone: String!, role: Role, userName: String!): UserType!
+  createUser(email: String!, featuredImage: String, firstName: String!, isEnabled: Boolean, lastName: String!, password: String!, phone: String!, role: Role, userName: String!): UserType!
   createWishlist(products: [String!], user: ID!): WishlistType!
-  register(email: String!, firstName: String!, isEnabled: Boolean, lastName: String!, password: String!, phone: String!, role: Role, userName: String!): UserType!
+  register(email: String!, featuredImage: String, firstName: String!, isEnabled: Boolean, lastName: String!, password: String!, phone: String!, role: Role, userName: String!): UserType!
   removeAccount(user: ID!): UserType!
   removeCart(id: ID!): CartType!
   removeOrder(id: ID!): OrderType!
@@ -64,10 +71,10 @@ type Mutation {
   removeWishlist(id: ID!): WishlistType!
   signIn(email: String!, password: String!): AuthType!
   updateCart(id: ID!, products: [CartProductInput!], user: ID): CartType!
-  updateOrder(billingAddress: String, city: String!, country: String!, currency: Currency, id: ID!, paymentMethod: PaymentMethod, products: [OrderItemInput!]!, shippingAddress: String, status: Status, totalAmount: Float!, user: ID!): OrderType!
-  updateProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, id: ID!, images: [String!], name: String!, price: Float!, rating: Float, salePrice: Float, stock: Int): ProductType!
+  updateOrder(billingAddress: String, city: String, country: String, currency: Currency, id: ID!, paymentMethod: PaymentMethod, products: [OrderItemInput!], shippingAddress: String, status: Status, totalAmount: Float, user: ID): OrderType!
+  updateProduct(categories: [ID!], currency: Currency, description: String, enabled: Boolean, featuredImage: String, id: ID!, images: [String!], name: String, price: Float, rating: Float, salePrice: Float, stock: Int): ProductType!
   updateProductCategory(description: String, id: ID!, img: String, name: String, slug: String): ProductCategoryType!
-  updateUser(email: String, firstName: String, id: ID!, isEnabled: Boolean, lastName: String, password: String, phone: String, role: Role, userName: String): UserType!
+  updateUser(email: String, featuredImage: String, firstName: String, id: ID!, isEnabled: Boolean, lastName: String, password: String, phone: String, role: Role, userName: String): UserType!
   updateWishlist(id: ID!, products: [String!], user: ID): WishlistType!
 }
 
@@ -143,7 +150,7 @@ type Query {
   getProductCategoryById(id: ID!): ProductCategoryType!
   getProducts(categories: [String!]): GetProductsResponse!
   getUserById(id: ID!): UserType!
-  getUsers: [UserType!]!
+  getUsers: GetUsersResponse!
   getWishlistById(user: ID!): WishlistType!
   getWishlists: [WishlistType!]!
 }
@@ -171,6 +178,7 @@ enum Status {
 type UserType {
   _id: ID!
   email: String!
+  featuredImage: String
   firstName: String
   isEnabled: Boolean!
   lastName: String

@@ -15,7 +15,7 @@ export class Product {
   @Prop({ required: true })
   price: number
 
-  @Prop()
+  @Prop({ default: 0 })
   salePrice: number
 
   @Prop({ min: 1, max: 5, default: 1 })

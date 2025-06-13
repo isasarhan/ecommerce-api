@@ -29,6 +29,7 @@ export class ProductsService {
     async findMany(ids: [string]) {
         return Promise.all(ids.map((id) => this.model.findById(id)))
     }
+
     filter(filter: GetProductsArgs) {
         let categoryIds: Types.ObjectId[] = []
         if (filter.categories)
@@ -38,6 +39,7 @@ export class ProductsService {
             ...filter.categories && filter.categories.length > 0 && { categories: { $in: categoryIds } },
         }
     }
+    
     async findAll(filters: IFilter, page: number = 1, limit: number = 20) {
         const finalLimit = filters.pageSize || limit;
 

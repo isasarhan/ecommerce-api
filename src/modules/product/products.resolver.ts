@@ -33,7 +33,7 @@ export class ProductsResolver {
     @Query(() => GetProductsResponse)
     async getProducts(@Args() args:GetProductsArgs) {        
         const filter = this.service.filter(args)
-        return this.service.findAll(filter)
+        return this.service.findAll(filter, args.page, args.pageSize)
     }
 
     @Mutation(() => ProductType)

@@ -38,7 +38,12 @@ export class CreateUserArgs {
     @Field({ nullable: true })
     @IsBoolean()
     @IsOptional()
-    isEnabled: boolean
+    isEnabled?: boolean
+
+    @Field({ nullable: true })
+    @IsString()
+    @IsOptional()
+    featuredImage?: string
 
     @Field(() => Role, { nullable: true })
     @IsOptional()

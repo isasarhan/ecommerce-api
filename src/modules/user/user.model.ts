@@ -30,6 +30,9 @@ export class UserType {
     @Field()
     isEnabled: boolean
 
+    @Field({ nullable: true })
+    featuredImage?: string
+
     @Field(() => Role)
     role: Role
 }
